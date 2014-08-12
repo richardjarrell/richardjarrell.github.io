@@ -1,7 +1,13 @@
 //settings
 var players = 20;
-var useCore = true;
-var useWolf = true;
+
+var setCore = true;
+var setWolf = true;
+var setUrban = false;
+var setTerrors = false;
+var setClassic = false;
+var setArtifacts = false;
+
 var useVampire = false;
 //decks
 var characterDeck = [];
