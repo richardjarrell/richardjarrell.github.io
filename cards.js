@@ -7,8 +7,7 @@ var setUrban = false;
 var setTerrors = false;
 var setClassic = false;
 var setArtifacts = false;
-
-var useVampire = false;
+var useVampires = false;
 //decks
 var characterDeck = [];
 var artifactDeck = [];
@@ -214,7 +213,6 @@ var coreSet = [
 	}, {
 		cardname: "Lone Wolf",
 		type: "character",
-
 		impact: -5,
 		color: "Red",
 		team: "Wolf",
@@ -222,7 +220,6 @@ var coreSet = [
 	}, {
 		cardname: "Minon",
 		type: "character",
-
 		impact: -6,
 		color: "Red",
 		team: "Wolf",
@@ -230,7 +227,6 @@ var coreSet = [
 	}, {
 		cardname: "Sorceress",
 		type: "character",
-
 		impact: -3,
 		color: "Red",
 		team: "Wolf",
@@ -238,7 +234,6 @@ var coreSet = [
 	}, {
 		cardname: "Wolf Cub",
 		type: "character",
-
 		impact: -8,
 		color: "Red",
 		team: "Wolf",
@@ -249,7 +244,6 @@ var coreSet = [
 	{
 		cardname: "Vampire",
 		type: "character",
-
 		impact: -7,
 		color: "Purple",
 		team: "Vampire",
@@ -260,7 +254,6 @@ var coreSet = [
 	{
 		cardname: "Cult Leader",
 		type: "character",
-
 		impact: 1,
 		color: "Green",
 		team: "Cult",
@@ -268,7 +261,6 @@ var coreSet = [
 	}, {
 		cardname: "Cursed",
 		type: "character",
-
 		impact: -3,
 		color: "Blue/Red",
 		team: "Village",
@@ -276,7 +268,6 @@ var coreSet = [
 	}, {
 		cardname: "Hoodlum",
 		type: "character",
-
 		impact: 0,
 		color: "Brown",
 		team: "Village",
@@ -284,7 +275,6 @@ var coreSet = [
 	}, {
 		cardname: "Tanner",
 		type: "character",
-
 		impact: -2,
 		color: "Tan",
 		team: "Tanner",
@@ -297,7 +287,6 @@ var wolfpackSet = [
 	{
 		cardname: "Virginia Woolf",
 		type: "character",
-
 		impact: -2,
 		color: "Blue",
 		team: "Village",
@@ -305,7 +294,6 @@ var wolfpackSet = [
 	}, {
 		cardname: "Big Bad Wolf",
 		type: "character",
-
 		impact: -9,
 		color: "Red",
 		team: "Wolf",
@@ -313,7 +301,6 @@ var wolfpackSet = [
 	}, {
 		cardname: "Dire Wolf",
 		type: "character",
-
 		impact: -4,
 		color: "Red",
 		team: "Wolf",
@@ -321,7 +308,6 @@ var wolfpackSet = [
 	}, {
 		cardname: "Fang Face",
 		type: "character",
-
 		impact: -5,
 		color: "Red",
 		team: "Wolf",
@@ -329,7 +315,6 @@ var wolfpackSet = [
 	}, {
 		cardname: "Fruit Brute",
 		type: "character",
-
 		impact: -3,
 		color: "Red",
 		team: "Wolf",
@@ -337,7 +322,6 @@ var wolfpackSet = [
 	}, {
 		cardname: "Wolverine",
 		type: "character",
-
 		impact: -4,
 		color: "Red",
 		team: "Wolf",
@@ -345,11 +329,56 @@ var wolfpackSet = [
 	},
 ]
 
+var artifactSet = [
+	//Artifacts
+	{
+		cardname: "",
+		type: "artifact",
+		impact: 0,
+		color: "Red",
+		team: null,
+		copies: 1
+	},
+];
+var classicSet = [
+	//Monsters
+	{
+		cardname: "",
+		type: "character",
+		impact: 0,
+		color: "Red",
+		team: "Wolf",
+		copies: 1
+	},
+];
+var urbanSet = [
+	//Myths
+	{
+		cardname: "",
+		type: "character",
+		impact: 0,
+		color: "Red",
+		team: "Wolf",
+		copies: 1
+	},
+];
+var terrorsSet = [
+	//Monsters
+	{
+		cardname: "",
+		type: "character",
+		impact: 0,
+		color: "Red",
+		team: "Wolf",
+		copies: 1
+	},
+];
+
 function BuildCardCollection() {
-	if (useCore) {
+	if (setCore) {
 		AddToCollection(coreSet);
 	}
-	if (useWolf) {
+	if (setWolf) {
 		AddToCollection(wolfpackSet);
 	}
 	for (i = 0; i < collection.length; i++) {
@@ -412,7 +441,7 @@ function DrawStaticCharacters() {
 	}
 	BoxCards(characterDeck, "Villager");
 	DrawExact(characterDeck, "Werewolf");
-	if (useVampire) {
+	if (useVampires) {
 		DrawExact(characterDeck, "Vampire");
 	} else {
 		BoxCards(characterDeck, "Vampire");
