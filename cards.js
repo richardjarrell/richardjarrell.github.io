@@ -1,148 +1,593 @@
-var deck = [];
+//settings
+var players = 20;
+var useCore = true;
+var useWolf = true;
+var useVampire = false;
+//decks
+var characterDeck = [];
+var artifactDeck = [];
+//lists
+var collection = [];
 var box = [];
 var table = [];
 var player = [];
-var card = [
+//globals
+var normal, normal;
+var special, special;
+var balance;
+//sets
+var coreSet = [
     //Moderator
-	{	character: "Moderator",				value: 0,		color: "Gray",		team: null,			copies: 1,	set: 'Core',		},
+    {
+        cardname: "Moderator",
+        type: "character",
+        impact: 0,
+        color: "Gray",
+        team: null,
+        copies: 1
+    },
     //Villagers
-    {	character: "Villager",				value: 1,		color: "Blue",		team: "Village",	copies: 15,	set: 'Core',		},
-    {	character: "Apprentice Seer",		value: 4,		color: "Blue",		team: "Village",	copies: 1,	set: 'Core',		},
-    {	character: "Aura Seer",				value: 3,		color: "Blue",		team: "Village",	copies: 1,	set: 'Core',		},
-    {	character: "Bodyguard",				value: 3,		color: "Blue",		team: "Village",	copies: 1,	set: 'Core',		},
-    {	character: "Cupid",					value: -3,		color: "Blue",		team: "Village",	copies: 1,	set: 'Core',		},
-    {	character: "Diseased",				value: 3,		color: "Blue",		team: "Village",	copies: 1,	set: 'Core',		},
-    {	character: "Doppelg&#228;nger",		value: -2,		color: "Blue",		team: "Village",	copies: 1,	set: 'Core',		},
-    {	character: "Drunk",					value: 4,		color: "Blue",		team: "Village",	copies: 1,	set: 'Core',		},
-    {	character: "Ghost",					value: 2,		color: "Blue",		team: "Village",	copies: 1,	set: 'Core',		},
-    {	character: "Hunter",				value: 3,		color: "Blue",		team: "Village",	copies: 1,	set: 'Core',		},
-    {	character: "Lycan",					value: -1,		color: "Blue",		team: "Village",	copies: 1,	set: 'Core',		},
-    {	character: "Mason",					value: 2,		color: "Blue",		team: "Village",	copies: 3,	set: 'Core',		},
-    {	character: "Mayor",					value: 2,		color: "Blue",		team: "Village",	copies: 1,	set: 'Core',		},
-    {	character: "Old Hag",				value: 1,		color: "Blue",		team: "Village",	copies: 1,	set: 'Core',		},
-    {	character: "Pacifist",				value: -1,		color: "Blue",		team: "Village",	copies: 1,	set: 'Core',		},
-    {	character: "Priest",				value: 3,		color: "Blue",		team: "Village",	copies: 1,	set: 'Core',		},
-    {	character: "Prince",				value: 3,		color: "Blue",		team: "Village",	copies: 1,	set: 'Core',		},
-    {	character: "Private Investigator",	value: 3,		color: "Blue",		team: "Village",	copies: 1,	set: 'Core',		},
-    {	character: "Seer",					value: 7,		color: "Blue",		team: "Village",	copies: 1,	set: 'Core',		},
-    {	character: "Spellcaster",			value: 1,		color: "Blue",		team: "Village",	copies: 1,	set: 'Core',		},
-    {	character: "Tough Guy",				value: 3,		color: "Blue",		team: "Village",	copies: 1,	set: 'Core',		},
-    {	character: "Troublemaker",			value: -3,		color: "Blue",		team: "Village",	copies: 1,	set: 'Core',		},
-    {	character: "Village Idiot",			value: 2,		color: "Blue",		team: "Village",	copies: 1,	set: 'Core',		},
-    {	character: "Virginia Woolf",		value: -2,		color: "Blue",		team: "Village",	copies: 1,	set: 'Wolf Pack',	},
-    {	character: "Witch",					value: 4,		color: "Blue",		team: "Village",	copies: 1,	set: 'Core',		},
+    {
+        cardname: "Villager",
+        type: "character",
+        impact: 1,
+        color: "Blue",
+        team: "Village",
+        copies: 15
+    }, {
+        cardname: "Apprentice Seer",
+        type: "character",
+        impact: 4,
+        color: "Blue",
+        team: "Village",
+        copies: 1
+    }, {
+        cardname: "Aura Seer",
+        type: "character",
+        impact: 3,
+        color: "Blue",
+        team: "Village",
+        copies: 1
+    }, {
+        cardname: "Bodyguard",
+        type: "character",
+        impact: 3,
+        color: "Blue",
+        team: "Village",
+        copies: 1
+    }, {
+        cardname: "Cupid",
+        type: "character",
+        impact: -3,
+        color: "Blue",
+        team: "Village",
+        copies: 1
+    }, {
+        cardname: "Diseased",
+        type: "character",
+        impact: 3,
+        color: "Blue",
+        team: "Village",
+        copies: 1
+    }, {
+        cardname: "Doppelg&#228;nger",
+        type: "character",
+        impact: -2,
+        color: "Blue",
+        team: "Village",
+        copies: 1
+    }, {
+        cardname: "Drunk",
+        type: "character",
+        impact: 4,
+        color: "Blue",
+        team: "Village",
+        copies: 1
+    }, {
+        cardname: "Ghost",
+        type: "character",
+        impact: 2,
+        color: "Blue",
+        team: "Village",
+        copies: 1
+    }, {
+        cardname: "Hunter",
+        type: "character",
+        impact: 3,
+        color: "Blue",
+        team: "Village",
+        copies: 1
+    }, {
+        cardname: "Lycan",
+        type: "character",
+        impact: -1,
+        color: "Blue",
+        team: "Village",
+        copies: 1
+    }, {
+        cardname: "Mason",
+        type: "character",
+        impact: 2,
+        color: "Blue",
+        team: "Village",
+        copies: 3
+    }, {
+        cardname: "Mayor",
+        type: "character",
+        impact: 2,
+        color: "Blue",
+        team: "Village",
+        copies: 1
+    }, {
+        cardname: "Old Hag",
+        type: "character",
+        impact: 1,
+        color: "Blue",
+        team: "Village",
+        copies: 1
+    }, {
+        cardname: "Pacifist",
+        type: "character",
+        impact: -1,
+        color: "Blue",
+        team: "Village",
+        copies: 1
+    }, {
+        cardname: "Priest",
+        type: "character",
+        impact: 3,
+        color: "Blue",
+        team: "Village",
+        copies: 1
+    }, {
+        cardname: "Prince",
+        type: "character",
+        impact: 3,
+        color: "Blue",
+        team: "Village",
+        copies: 1
+    }, {
+        cardname: "Private Investigator",
+        type: "character",
+        impact: 3,
+        color: "Blue",
+        team: "Village",
+        copies: 1
+    }, {
+        cardname: "Seer",
+        type: "character",
+        impact: 7,
+        color: "Blue",
+        team: "Village",
+        copies: 1
+    }, {
+        cardname: "Spellcaster",
+        type: "character",
+        impact: 1,
+        color: "Blue",
+        team: "Village",
+        copies: 1
+    }, {
+        cardname: "Tough Guy",
+        type: "character",
+        impact: 3,
+        color: "Blue",
+        team: "Village",
+        copies: 1
+    }, {
+        cardname: "Troublemaker",
+        type: "character",
+        impact: -3,
+        color: "Blue",
+        team: "Village",
+        copies: 1
+    }, {
+        cardname: "Village Idiot",
+        type: "character",
+        impact: 2,
+        color: "Blue",
+        team: "Village",
+        copies: 1
+    }, {
+        cardname: "Witch",
+        type: "character",
+        impact: 4,
+        color: "Blue",
+        team: "Village",
+        copies: 1
+    },
 
     //Werewolves
-    {	character: "Werewolf",				value: -6,		color: "Red",		team: "Wolf",		copies: 12,	set: 'Core',		},
-    {	character: "Big Bad Wolf",			value: -9,		color: "Red",		team: "Wolf",		copies: 1,	set: 'Wolf Pack',	},
-    {	character: "Dire Wolf",				value: -4,		color: "Red",		team: "Wolf",		copies: 1,	set: 'Wolf Pack',	},
-    {	character: "Fang Face",				value: -5,		color: "Red",		team: "Wolf",		copies: 1,	set: 'Wolf Pack',	},
-    {	character: "Fruit Brute",			value: -3,		color: "Red",		team: "Wolf",		copies: 1,	set: 'Wolf Pack',	},
-    {	character: "Lone Wolf",				value: -5,		color: "Red",		team: "Wolf",		copies: 1,	set: 'Core',		},
-    {	character: "Minon",					value: -6,		color: "Red",		team: "Wolf",		copies: 1,	set: 'Core',		},
-    {	character: "Sorceress",				value: -3,		color: "Red",		team: "Wolf",		copies: 1,	set: 'Core',		},
-    {	character: "Wolf Cub",				value: -8,		color: "Red",		team: "Wolf",		copies: 1,	set: 'Core',		},
-    {	character: "Wolverine",				value: -4,		color: "Red",		team: "Wolf",		copies: 1,	set: 'Wolf Pack',	},
+    {
+        cardname: "Werewolf",
+        type: "character",
+        impact: -6,
+        color: "Red",
+        team: "Wolf",
+        copies: 12
+    }, {
+        cardname: "Lone Wolf",
+        type: "character",
+
+        impact: -5,
+        color: "Red",
+        team: "Wolf",
+        copies: 1
+    }, {
+        cardname: "Minon",
+        type: "character",
+
+        impact: -6,
+        color: "Red",
+        team: "Wolf",
+        copies: 1
+    }, {
+        cardname: "Sorceress",
+        type: "character",
+
+        impact: -3,
+        color: "Red",
+        team: "Wolf",
+        copies: 1
+    }, {
+        cardname: "Wolf Cub",
+        type: "character",
+
+        impact: -8,
+        color: "Red",
+        team: "Wolf",
+        copies: 1
+    },
 
     //Vampires
-    {	character: "Vampire",				value: -7,		color: "Purple",	team: "Vampire",	copies: 8,	set: 'Core',		},
-	
+    {
+        cardname: "Vampire",
+        type: "character",
+
+        impact: -7,
+        color: "Purple",
+        team: "Vampire",
+        copies: 8
+    },
+
     //Special
-    {	character: "Cult Leader",			value: 1,		color: "Green",		team: "Cult",		copies: 1,	set: 'Core',		},
-    {	character: "Cursed",				value: -3,		color: "Blue/Red",	team: "Village",	copies: 1,	set: 'Core',		},
-    {	character: "Hoodlum",				value: 0,		color: "Brown",		team: "Village",	copies: 1,	set: 'Core',		},
-    {	character: "Tanner",				value: -2,		color: "Tan",		team: "Tanner",		copies: 1,	set: 'Core',		},
+    {
+        cardname: "Cult Leader",
+        type: "character",
+
+        impact: 1,
+        color: "Green",
+        team: "Cult",
+        copies: 1
+    }, {
+        cardname: "Cursed",
+        type: "character",
+
+        impact: -3,
+        color: "Blue/Red",
+        team: "Village",
+        copies: 1
+    }, {
+        cardname: "Hoodlum",
+        type: "character",
+
+        impact: 0,
+        color: "Brown",
+        team: "Village",
+        copies: 1
+    }, {
+        cardname: "Tanner",
+        type: "character",
+
+        impact: -2,
+        color: "Tan",
+        team: "Tanner",
+        copies: 1
+    },
 ];
 
+var wolfpackSet = [
+    //Werewolves
+    {
+        cardname: "Virginia Woolf",
+        type: "character",
 
-function BuildDeck(){
-    //cycle through all cards and build the deck array
-    var cardNum = 0;
-    for (i = 0; i < card.length; i++) {
-        for (x = 0; x < card[i].copies; x++) {
-            var newCard = JSON.parse(JSON.stringify(card[i]));
-            deck.push(newCard);
-            var y = x+1;
-            deck[cardNum].constructor.name = deck[cardNum].copies > 1 ? card[i].character + y : card[i].character;
-            cardNum = cardNum + 1;
+        impact: -2,
+        color: "Blue",
+        team: "Village",
+        copies: 1
+    }, {
+        cardname: "Big Bad Wolf",
+        type: "character",
+
+        impact: -9,
+        color: "Red",
+        team: "Wolf",
+        copies: 1
+    }, {
+        cardname: "Dire Wolf",
+        type: "character",
+
+        impact: -4,
+        color: "Red",
+        team: "Wolf",
+        copies: 1
+    }, {
+        cardname: "Fang Face",
+        type: "character",
+
+        impact: -5,
+        color: "Red",
+        team: "Wolf",
+        copies: 1
+    }, {
+        cardname: "Fruit Brute",
+        type: "character",
+
+        impact: -3,
+        color: "Red",
+        team: "Wolf",
+        copies: 1
+    }, {
+        cardname: "Wolverine",
+        type: "character",
+
+        impact: -4,
+        color: "Red",
+        team: "Wolf",
+        copies: 1
+    },
+]
+
+function BuildCardCollection() {
+    if (useCore) {
+        AddToCollection(coreSet);
+    }
+    if (useWolf) {
+        AddToCollection(wolfpackSet);
+    }
+    for (i = 0; i < collection.length; i++) {
+        collection[i].ID = i;
+        box.push(collection[i]);
+    }
+}
+
+function AddToCollection(set) {
+    for (a = 0; a < set.length; a++) {
+        do {
+            collection.push(JSON.parse(JSON.stringify(set [a])));
+            set [a].copies--;
+        } while (set [a].copies > 0);
+    }
+}
+
+function CreateDecks() {
+    var toSort = box.length;
+    for (i = 0; i < toSort; i++) {
+        if (box[0].type == 'character') {
+            characterDeck.push(box[0]);
+        } else if (box[0].type == 'artifact') {
+            artifactDeck.push(box[0]);
+        }
+        box.splice(0, 1);
+    }
+    characterDeck = Shuffle(characterDeck);
+    artifactDeck = Shuffle(artifactDeck);
+    //characterDeck.Shuffle();
+}
+
+function BuildScenario() {
+    var nonmods = players - 1; //remove the moderator from the count
+    normal = nonmods < 15 ? Math.round(nonmods / 2) : Math.min(Math.round(nonmods / 4), 15); //find count of normal villagers using ratio from rulebook
+    special = nonmods - normal;
+
+    document.getElementById('normal').innerHTML = 'Villagers: ' + normal;
+    document.getElementById('special').innerHTML = 'Others: ' + special;
+
+    DrawStaticCharacters();
+    DrawDynamicCharacters();
+    GetBalance();
+		BalanceTable();
+}
+
+function DrawStaticCharacters() {
+    var villagers = normal
+    DrawExact(characterDeck, "Moderator");
+    var seer = Roll(1, 100) < 95 ? 'Seer' : 'other';
+    if (seer == 'other') {
+        seer = Roll(1, 2) == 1 ? 'Aura Seer' : 'Apprentice Seer';
+    }
+    DrawExact(characterDeck, seer);
+    special--;
+    while (normal > 0) {
+        DrawExact(characterDeck, "Villager");
+        normal--;
+    }
+    BoxCards(characterDeck, "Villager");
+    DrawExact(characterDeck, "Werewolf");
+    if (useVampire) {
+        DrawExact(characterDeck, "Vampire");
+    } else {
+        BoxCards(characterDeck, "Vampire");
+    }
+    special--;
+}
+
+function DrawDynamicCharacters() {
+    while (special > 0) {
+        if (GetBalance() > 0) {
+            ScryCard(characterDeck,findBad);
+        } else {
+            ScryCard(characterDeck,findGood);
+        }
+        special--;
+    }
+}
+
+function BalanceTable(){
+	var temp = [];//create list of removable cards
+	for (i=0; i < table.length; i++){
+		temp.push(table[i]);
+	}
+	if(GetIndex(temp,"Moderator")!=null){
+		temp.splice(GetIndex(temp,"Moderator"),1);
+		}
+var seers= SaveSeers(temp);
+		if(seers.length > 0){
+				temp.splice(seers[0],1);
+			}
+var villagers = SaveVillagers(temp);
+		for (i=0; i < villagers.length; i++){
+			temp.splice(villagers[i],1);
+		}
+
+	var balance = GetBalance();
+	var unbalance = Math.abs(GetBalance())
+//	while (unbalance > 1){
+		//find swappable pair by finding the delta between the top card of temp and each card of the character deck
+	}
+}
+
+function DrawCard(deck) {
+    table.push(deck[0]);
+    deck.splice(0, 1);
+}
+
+function ScryCard(deck, validation) {
+    var temp = [];
+    var redraw = true;
+    do {
+        if (validation(deck[0])) {
+            DrawExact(deck, deck[0].cardname);
+            redraw = false;
+        } else {
+            temp.push(deck[0]);
+            deck.splice(0, 1);
         }
     }
-
-    //put all cards in the box and give ids
-    for (i=0; i < deck.length; i++){
-        deck[i].location='box';
-        deck[i].id=i;
-		box[i]=deck[i];
+    while (redraw);
+    for (i = 0; i < temp.length; i++) {
+        deck.push(temp[i]);
     }
-
-	//sort the deck alphabetically
-    //deck.sort(function(a,b) {return (a.character > b.character) ? 1 : ((b.character > a.character) ? -1 : 0);} );
-	
-
-    //print the deck values
-    document.getElementById('count').innerHTML = 'Deck Size: ' + deck.length;
+    deck = Shuffle(deck);
 }
 
-function BuildScenario(players){
-    //find count of normal villiagers and other card
-    var normal = players<15 ? Math.round(players/2): Math.min(Math.round(players/4),15);
-    var special = players-normal;
-    var ratio = Math.round((special/normal)*10)/10;
-
-    //print counts
-    document.getElementById('players').innerHTML = 'Players: ' + players;
-    document.getElementById('normal').innerHTML = 'Normal: ' + normal;
-    document.getElementById('special').innerHTML = 'Special: ' + special + '  (' + ratio + ':1)' ;
-
-    //get must have cards
-	DrawModerator();
-	DrawSeer();
-}
-
-function DrawModerator(){
-    DrawCard(Search(deck,"Moderator"));
-}
-
-function DrawSeer(){
-    var seer = Roll(1,100) < 95 ? 'Seer' : 'other';
-    if (seer=='other'){
-        seer = Roll(1,2) == 1 ? 'Aura Seer' : 'Apprentice Seer';
+function DrawExact(deck, card) {
+    var idx = GetIndex(deck, card);
+    if (idx != null) {
+        table.push(deck[idx]);
+        deck.splice(idx, 1);
     }
-    DrawCard(Search(deck,seer));
 }
 
-function DrawCard(index){
-    deck[index].location='table';
-    box.splice(index,1);
-    table.splice(index,0,deck[index]);
+function BoxCards(deck, card) {
+    var idx = GetIndex(deck, card);
+    while (idx != null) {
+        box.push(deck[idx]);
+        deck.splice(idx, 1);
+        idx = GetIndex(deck, card);
+    }
 }
 
-function TrashCard(index){
-    deck[index].location='box';
-    table.splice(index,1);
-    box.splice(index,0,deck[index]);
+function GetBalance() {
+    balance = 0;
+    for (i = 0; i < table.length; i++) {
+        balance = table[i].impact + balance;
+    }
+		return balance;
 }
 
-function Roll(min,max){
-    return Math.round(Math.random()*(max-min)+min);
+function Roll(min, max) {
+    return Math.round(Math.random() * (max - min) + min);
 }
 
-function Search(list,card){
-    for (i=0; i<list.length; i++){
-        if (list[i].character == card){
-			return i;
+function GetIndex(list, card) {
+    for (i = 0; i < list.length; i++) {
+        if (list[i].cardname == card) {
+            return i;
         }
     }
+    return null;
 }
 
-function ShowDeck(list){
-    document.getElementById('list').innerHTML = '';
-    for (i=0; i<list.length; i++){
-        document.getElementById('list').innerHTML = document.getElementById('list').innerHTML +
-            '<li>' + list[i].id + ': ' + list[i].character +	': ' + list[i].location +'</li>';
+function SaveSeers(deck){
+	var seers = [];
+	for (i=0; i < deck.length; i++){
+		if (deck[i].cardname.indexOf("Seer")!=-1)
+			seers.push(i);
+	}
+	return seers;
+}
+
+function SaveVillagers(deck){
+	var villagers = [];
+	for (i=0; i < deck.length; i++){
+		if (deck[i].cardname == "Villager")
+			villagers.push(i);
+	}
+	return villagers;
+}
+
+function Shuffle(deck) {
+    var counter = deck.length,
+        temp, index;
+    while (counter > 0) {
+        index = Math.floor(Math.random() * counter);
+        counter--;
+        temp = deck[counter];
+        deck[counter] = deck[index];
+        deck[index] = temp;
+    }
+    return deck;
+}
+
+function findGood(firstCard) {
+    return firstCard.impact > 0;
+}
+
+function findBad(firstCard) {
+    return firstCard.impact < 0;
+}
+
+function findTeam(firstCard, team) {
+    return firstcard.team == team;
+}
+
+function ShowDeck(deck) {
+    document.getElementById('box').innerHTML = '';
+    document.getElementById('table').innerHTML = '';
+    document.getElementById('characters').innerHTML = '';
+    document.getElementById('artifacts').innerHTML = '';
+
+    for (i = 0; i < box.length; i++) {
+        document.getElementById('box').innerHTML = document.getElementById('box').innerHTML + '<li>' + box[i].cardname + '</li>';
+    }
+    for (i = 0; i < table.length; i++) {
+        document.getElementById('table').innerHTML = document.getElementById('table').innerHTML + '<li>' + table[i].cardname + ' : ' + table[i].impact + '</li>';
+    }
+    for (i = 0; i < characterDeck.length; i++) {
+        document.getElementById('characters').innerHTML = document.getElementById('characters').innerHTML + '<li>' + characterDeck[i].cardname + '</li>';
+    }
+    for (i = 0; i < artifactDeck.length; i++) {
+        document.getElementById('artifacts').innerHTML = document.getElementById('artifacts').innerHTML + '<li>' + artifactDeck[i].cardname + '</li>';
     }
 }
 
-BuildDeck();
-BuildScenario(Math.floor(Roll(5,75)));
-ShowDeck(table);
+function PrintData() {
+    document.getElementById('count').innerHTML = 'Deck Size: ' + collection.length;
+    document.getElementById('players').innerHTML = 'Players: ' + (players-1) + ' + 1 moderator';
+
+    document.getElementById('stacks').innerHTML =
+        'Box: ' + box.length + '<p>' +
+        'Character Deck: ' + characterDeck.length + '<p>' +
+        'Artifact Deck: ' + artifactDeck.length + '<p>' +
+        'Table: ' + table.length + '<p>' +
+        '';
+    document.getElementById('balance').innerHTML = 'Balance: ' + balance;
+}
+
+BuildCardCollection();
+CreateDecks();
+BuildScenario();
+ShowDeck(box);
+PrintData();
