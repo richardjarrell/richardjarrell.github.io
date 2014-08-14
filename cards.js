@@ -270,7 +270,7 @@ var coreSet = [
 		type: "character",
 		impact: 0,
 		color: "Brown",
-		team: "Village",
+		team: "Hoodlum",
 		copies: 1
 	}, {
 		cardname: "Tanner",
@@ -630,7 +630,7 @@ function ShowDeck(deck) {
 		document.getElementById('box').innerHTML = document.getElementById('box').innerHTML + '<li>' + box[i].cardname + '</li>';
 	}
 	for (i = 0; i < table.length; i++) {
-		document.getElementById('table').innerHTML = document.getElementById('table').innerHTML + '<li>' + table[i].cardname + ' : ' + table[i].impact + '</li>';
+		document.getElementById('table').innerHTML = document.getElementById('table').innerHTML + '<li>' + table[i].cardname + '</li>';
 	}
 	for (i = 0; i < characterDeck.length; i++) {
 		document.getElementById('characters').innerHTML = document.getElementById('characters').innerHTML + '<li>' + characterDeck[i].cardname + '</li>';
