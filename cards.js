@@ -152,7 +152,7 @@ var coreSet = [
 		team: "Village",
 		copies: 1
 	}, {
-		cardname: "Private Investigator",
+		cardname: "Paranormal Investigator",
 		type: "character",
 		impact: 3,
 		color: "Blue",
