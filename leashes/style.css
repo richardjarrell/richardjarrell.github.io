@@ -34,6 +34,7 @@ td{
   left:-323px;
   width:840px;
   height:1168px;
+  pointer-events: none;
 }
 .raid{
   height:600px;
@@ -83,7 +84,7 @@ body{
 }
 .guidebody a{
 color:#b79855;
-  
+
 }
 a{
   color:#948b87;
