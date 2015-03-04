@@ -9,8 +9,9 @@ float:left;
 }
 table{
   background-color:#050402;
-  padding:none;
+  padding:0px;
   border:none;
+  border-spacing:0px;
 }
 iframe{
   border:none;
@@ -55,7 +56,7 @@ td{
 }
 .toon{
   height:130px;
-  margin-bottom:0;
+  margin-bottom:-5px;
 }
 .name{
   transform: rotate(90deg);
