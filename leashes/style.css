@@ -18,7 +18,7 @@ iframe{
 }
 td{
   padding:0;
-  border:none;
+  border-bottom:#050402 solid 2px;
 }
 .outer
 {
@@ -26,6 +26,7 @@ td{
   height:165px;
   overflow:hidden;
   position:relative;
+  border-right:2px solid #050402;
 }
 
 .inner
@@ -69,6 +70,7 @@ td{
 }
 .pic{
   vertical-align:bottom;
+  border-left:#050402 solid 2px;
 }
 .buffer{
   background:linear-gradient(to right,#050402,#231914);
